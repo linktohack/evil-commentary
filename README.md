@@ -12,8 +12,24 @@ author of [vim-commentary] and want to have something really simple
 (less than 100 lines) like he did with his [vim-commentary].
 
 ## Install
+The easiest way to install `evil-commentary` is by `package.el`
+through melpa [melpa](http://melpa.milkbox.net/#/getting-started) then
+try it with
 
-Manually clone [evil-commentary] to your `loadpath` and add those line to `init.el`
+```lisp
+M-x evil-commentary-default-setup
+```
+
+To enable `evil-commentary` permanently, add
+
+```lisp
+(evil-commentary-default-setup)
+```
+
+to your `init.el`.
+
+Or anually clone [evil-commentary] to your `loadpath` and add those
+line to `init.el`
 
 ```lisp
 (add-to-list 'load-path "/path/to/evil-commentary")
@@ -32,9 +48,22 @@ I also bind <kbd>super</kbd>+<kbd>/</kbd> as an stand-alone defacto
 default key binding in most text-editor. It's should work in `emacs`
 and `insert` state too. (Evil is however still required.)
 
-Feel free to map to anything you want. If you find that <kbd>,cc</kbd>
-is more elegant/convenience, consider having a look on [evil-space] to
-keep `evil-repeat-find-char` working...
+## Custom mappings
+You're free to map `evil-commentary` and `evil-commentary-line` to
+anything you want. If you find that <kbd>,cc</kbd> is more
+elegant/convenience, consider having a look on [evil-space] to keep
+`evil-repeat-find-char` functional...
+
+The autoload functions are, however, not enable by defaut apart from
+`evil-commentary-default-setup` to prevent `evil` from `autoload`. To
+customize keys, consider add something like this into `init.el`.
+
+```lisp
+(eval-after-load 'diff-mode
+  '(progn
+	(require 'evil-commentary)
+	(define-key 'evil-normal-state-map ",c" evil-commentary)))
+```
 
 [evil-commentary]: https://github.com/linktohack/evil-commentary
 [evil-mode]: https://gitorious.org/evil/pages/Home
