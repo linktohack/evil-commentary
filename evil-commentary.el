@@ -72,3 +72,5 @@
   (global-set-key (kbd "s-/") 'evil-commentary-line))
 
 (provide 'evil-commentary)
+
+;;; evil-commentary.el ends here
