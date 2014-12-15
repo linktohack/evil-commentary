@@ -1,4 +1,4 @@
-# evil-commentary [vim-commentary] for [evil-mode].
+# evil-commentary
 
 [evil-commentary] is intended to be a port of [vim-commentary].
 
@@ -37,6 +37,7 @@ is more elegant/convenience, consider having a look on [evil-space] to
 keep `evil-repeat-find-char` working...
 
 [evil-commentary]: https://github.com/linktohack/evil-commentary
+[evil-mode]: https://gitorious.org/evil/pages/Home
 [vim-commentary]: https://github.com/tpope/vim-commentary
 [tpope]: https://github.com/tpope
 [evil-space]: https://github.com/linktohack/evil-space
