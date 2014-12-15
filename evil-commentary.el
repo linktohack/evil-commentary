@@ -44,14 +44,12 @@
 
 (require 'evil)
 
-;;;###autoload
 (evil-define-operator evil-commentary (beg end type register)
   "Comment or uncomment region that {motion} moves over."
   :move-point nil
   (interactive "<R><x>")
   (comment-or-uncomment-region beg end))
 
-;;;###autoload
 (evil-define-operator evil-commentary-line (beg end type register)
   "Comment or uncomment [count] lines."
   :motion evil-line
