@@ -44,17 +44,17 @@
 
 (require 'evil)
 
-(evil-define-operator evil-commentary (beg end type register)
+(evil-define-operator evil-commentary (beg end type)
   "Comment or uncomment region that {motion} moves over."
   :move-point nil
-  (interactive "<R><x>")
+  (interactive "<R>")
   (comment-or-uncomment-region beg end))
 
-(evil-define-operator evil-commentary-line (beg end type register)
+(evil-define-operator evil-commentary-line (beg end type)
   "Comment or uncomment [count] lines."
   :motion evil-line
   :move-point nil
-  (interactive "<R><x>")
+  (interactive "<R>")
   (when (evil-visual-state-p)
     (unless (memq type '(line block))
       (let ((range (evil-expand beg end 'line)))
