@@ -2,10 +2,10 @@
 
 [evil-commentary] is intended to be a port of [vim-commentary].
 
-	Use <kbd>gcc</kbd> to comment out a line (takes a count),
-	<kbd>gc</kbd> to comment out the target of a motion (for example,
-	<kbd>gcap</kbd> to comment out a paragraph), <kbd>gc</kbd> in
-	visual mode to comment out the selection.
+> Use <kbd>gcc</kbd> to comment out a line (takes a count),
+> <kbd>gc</kbd> to comment out the target of a motion (for example,
+> <kbd>gcap</kbd> to comment out a paragraph), <kbd>gc</kbd> in visual
+> mode to comment out the selection.
 
 I wrote this because of that I really admire the work of [tpope] the
 author of [vim-commentary] and want to have something really simple
