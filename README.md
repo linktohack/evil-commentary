@@ -41,8 +41,11 @@ line to `init.el`
 
 The default setups will enable the `operator` `evil-commentary` to
 <kbd>gc</kbd>. That means we will be free to use it with any available
-`motions` and `arguments`. <kbd>gcc</kbd> is also work as
-expected. Try <kbd>gcap</kbd> to see how it works in action.
+`motions` and `arguments`. <kbd>gcc</kbd> does also work as
+expected. Try <kbd>gcap</kbd> to comment out a paragraph or to
+uncomment a paragraph that is already commented
+out. `:g/TODO/evil-commentary` can be used to toggle comments on all
+lines that contain the string "TODO".
 
 I also bind <kbd>super</kbd>+<kbd>/</kbd> as an stand-alone defacto
 default key binding in most text-editor. It's should work in `emacs`
