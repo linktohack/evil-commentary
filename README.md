@@ -57,7 +57,7 @@ default key binding in most text-editor. It's should work in `emacs` and
 
 You're free to map `evil-commentary` and `evil-commentary-line` to
 anything you want. If you find that <kbd>,cc</kbd> is more
-elegant/convenience, consider having a look on [evil-space] to keep
+elegant/convenient, consider having a look on [evil-space] to keep
 `evil-repeat-find-char` functional...
 
 The autoload functions are, however, not enable by defaut apart from
@@ -68,7 +68,8 @@ customize keys, consider add something like this into `init.el`.
 (eval-after-load 'evil
   '(progn
      (require 'evil-commentary)
-     (define-key 'evil-normal-state-map ",c" evil-commentary)))
+     (define-key evil-normal-state-map ",c" 'evil-commentary)
+     (global-set-key (kbd "M-;") 'evil-commentary-line)))
 ```
 
 [evil-commentary]: https://github.com/linktohack/evil-commentary
