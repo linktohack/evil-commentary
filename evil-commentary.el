@@ -4,7 +4,7 @@
 
 ;; Author: Quang Linh LE <linktohack@gmail.com>
 ;; URL: http://github.com/linktohack/evil-commentary
-;; Version: 0.0.2
+;; Version: 0.0.3
 ;; Keywords: evil comment commentary evil-commentary
 ;; Package-Requires: ((evil "1.0.0"))
 
@@ -65,11 +65,21 @@
   (comment-or-uncomment-region beg end))
 
 ;;;###autoload
-(defun evil-commentary-default-setup ()
-  "Default key bindings for `evil-commentary`."
-  (interactive)
-  (define-key evil-normal-state-map "gc" 'evil-commentary)
-  (global-set-key (kbd "s-/") 'evil-commentary-line))
+(define-minor-mode evil-commentary-mode
+  "Commentary mode."
+  :lighter " s-/"
+  :global t
+  :keymap (let ((map (make-sparse-keymap)))
+            (evil-define-key 'normal map "gc" 'evil-commentary)
+            (define-key map (kbd "s-/") 'evil-commentary-line)
+            map))
+
+;;;###autoload
+(define-obsolete-variable-alias 'evil-commentary-default-setup
+  'evil-commentary-mode "0.0.3")
+;;;###autoload
+(define-obsolete-function-alias 'evil-commentary-default-setup
+  'evil-commentary-mode "0.0.3")
 
 (provide 'evil-commentary)
 
