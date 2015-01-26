@@ -18,13 +18,13 @@ melpa [melpa](http://melpa.milkbox.net/#/getting-started) then try it
 with
 
 ```lisp
-M-x evil-commentary-default-setup
+M-x evil-commentary-mode
 ```
 
 To enable `evil-commentary` permanently, add
 
 ```lisp
-(evil-commentary-default-setup)
+(evil-commentary-mode)
 ```
 
 to your `init.el`.
@@ -35,12 +35,12 @@ line to `init.el`
 ```lisp
 (add-to-list 'load-path "/path/to/evil-commentary")
 (require 'evil-commentary)
-(evil-commentary-default-setup)
+(evil-commentary-mode)
 ```
 
-## Default setups
+## Default mappings
 
-The default setups will enable the `operator` `evil-commentary` to
+The default mappings will enable the `operator` `evil-commentary` to
 <kbd>gc</kbd>. That means we will be free to use it with any available
 `motions` and `arguments`. <kbd>gcc</kbd> does also work as
 expected. Try <kbd>gcap</kbd> to comment out a paragraph or to uncomment
