@@ -60,16 +60,11 @@ anything you want. If you find that <kbd>,cc</kbd> is more
 elegant/convenient, consider having a look on [evil-space] to keep
 `evil-repeat-find-char` functional...
 
-The autoload functions are, however, not enable by defaut apart from
-`evil-commentary-default-setup` to prevent `evil` from `autoload`. To
-customize keys, consider add something like this into `init.el`.
+To customize keys, consider add something like this into `init.el`.
 
 ```lisp
-(eval-after-load 'evil
-  '(progn
-     (require 'evil-commentary)
-     (define-key evil-normal-state-map ",c" 'evil-commentary)
-     (global-set-key (kbd "M-;") 'evil-commentary-line)))
+(evil-define-key 'normal evil-commentary-mode-map ",c" 'evil-commentary)
+(define-key evil-commentary-mode-map (kbd "M-;") 'evil-commentary-line)
 ```
 
 [evil-commentary]: https://github.com/linktohack/evil-commentary
