@@ -43,12 +43,35 @@
 ;;; Code:
 
 (require 'evil)
+(require 'ec-mode-comment-functions)
+
+(defgroup evil-commentary nil
+  "Comment stuff out"
+  :group 'evil
+  :prefix "evil-commentary-")
+
+(defcustom evil-commentary-comment-function-for-mode-alist
+  '((f90-mode . f90-comment-region)
+    (web-mode . web-mode-comment-or-uncomment-region))
+  "Mode-specific comment function.
+
+By default, `evil-commentary' use `comment-or-uncomment'
+function. By specify an alist of modes here, the comment function
+provided by major mode will be use instead.
+
+A comment functions has to accept BEG, END as its required
+parameter. See `ec-mode-comment-functions' if a customized one is
+needed."
+  :group 'evil-commentary)
 
 (evil-define-operator evil-commentary (beg end type)
   "Comment or uncomment region that {motion} moves over."
   :move-point nil
   (interactive "<R>")
-  (comment-or-uncomment-region beg end))
+  (let ((comment-function (cdr (assoc major-mode
+                                 evil-commentary-comment-function-for-mode-alist))))
+    (if comment-function (funcall comment-function beg end)
+      (comment-or-uncomment-region beg end))))
 
 (evil-define-operator evil-commentary-line (beg end type)
   "Comment or uncomment [count] lines."
@@ -62,7 +85,10 @@
               end (evil-range-end range)
               type (evil-type range))))
     (evil-exit-visual-state))
-  (comment-or-uncomment-region beg end))
+  (let ((comment-function (cdr (assoc major-mode
+                                 evil-commentary-comment-function-for-mode-alist))))
+    (if comment-function (funcall comment-function beg end)
+      (comment-or-uncomment-region beg end))))
 
 ;;;###autoload
 (define-minor-mode evil-commentary-mode
