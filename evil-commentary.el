@@ -90,6 +90,22 @@ needed."
     (if comment-function (funcall comment-function beg end)
       (comment-or-uncomment-region beg end))))
 
+(evil-define-operator evil-commentary-yank (beg end type register yank-handler)
+  "Saves the characters in motion into the kill-ring."
+  :move-point nil
+  :repeat nil
+  (interactive "<R><x><y>")
+  (evil-yank beg end type register yank-handler)
+  (evil-commentary beg end))
+  
+(evil-define-operator evil-commentary-yank-line (beg end type register)
+  "Saves whole lines into the kill-ring."
+  :motion evil-line
+  :move-point nil
+  (interactive "<R><x>")
+  (evil-yank-line beg end type register)
+  (evil-commentary-line beg end))
+
 ;;;###autoload
 (define-minor-mode evil-commentary-mode
   "Commentary mode."
@@ -97,6 +113,7 @@ needed."
   :global t
   :keymap (let ((map (make-sparse-keymap)))
             (evil-define-key 'normal map "gc" 'evil-commentary)
+            (evil-define-key 'normal map "gy" 'evil-commentary-yank)
             (define-key map (kbd "s-/") 'evil-commentary-line)
             map))
 
