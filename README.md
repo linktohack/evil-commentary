@@ -53,6 +53,18 @@ I also bind <kbd>super</kbd>+<kbd>/</kbd> as an stand-alone *defacto*
 default key binding in most text-editor. It's should work in `emacs` and
 `insert` state too. (Evil is however still required.)
 
+## Comment function
+
+By default, `evil-commentary` use `comment-or-uncomment` function. By
+specify an alist of modes
+`evil-commentary-comment-function-for-mode-alist`, the comment
+function provided by major mode will be use instead.
+
+A comment functions has to accept BEG, END as its required parameter.
+See
+[ec-mode-comment-functions](https://github.com/linktohack/evil-commentary/blob/master/ec-mode-comment-functions.el)
+if a customized one is needed.
+
 ## Custom mappings
 
 You're free to map `evil-commentary` and `evil-commentary-line` to
