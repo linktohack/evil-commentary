@@ -4,14 +4,14 @@
   '(defun web-mode-comment-or-uncomment-region (beg end)
      "Comment or uncomment region."
      (interactive)
-     (save-excursion 
+     (save-excursion
        (push-mark end)
        (goto-char beg)
        (setq mark-active t)
        (web-mode-comment-or-uncomment)
        (pop-mark))))
-  
-  
+
+
 (provide 'ec-mode-comment-functions)
 
 ;;; ec-mode-comment-functions.el ends here

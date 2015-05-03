@@ -97,7 +97,7 @@ needed."
   (interactive "<R><x><y>")
   (evil-yank beg end type register yank-handler)
   (evil-commentary beg end))
-  
+
 (evil-define-operator evil-commentary-yank-line (beg end type register)
   "Saves whole lines into the kill-ring."
   :motion evil-line
