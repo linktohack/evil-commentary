@@ -85,10 +85,7 @@ needed."
               end (evil-range-end range)
               type (evil-type range))))
     (evil-exit-visual-state))
-  (let ((comment-function (cdr (assoc major-mode
-                                 evil-commentary-comment-function-for-mode-alist))))
-    (if comment-function (funcall comment-function beg end)
-      (comment-or-uncomment-region beg end))))
+  (evil-commentary beg end type))
 
 (evil-define-operator evil-commentary-yank (beg end type register yank-handler)
   "Saves the characters in motion into the kill-ring."
