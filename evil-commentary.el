@@ -68,10 +68,23 @@ needed."
   "Comment or uncomment region that {motion} moves over."
   :move-point nil
   (interactive "<R>")
-  (let ((comment-function (cdr (assoc major-mode
-                                 evil-commentary-comment-function-for-mode-alist))))
-    (if comment-function (funcall comment-function beg end)
-      (comment-or-uncomment-region beg end))))
+  ;; Special treatment for org-mode
+  (cond ((and (derived-mode-p 'org-mode)
+              (org-in-src-block-p)
+              (not (bound-and-true-p org-src-mode)))
+           (push-mark end)
+           (goto-char beg)
+           (setq mark-active t)
+           (org-edit-src-code)
+           (call-interactively 'evil-commentary)
+           (org-edit-src-exit)
+           (pop-mark))
+        (t
+         (let ((comment-function
+                (cdr (assoc major-mode
+                            evil-commentary-comment-function-for-mode-alist))))
+           (if comment-function (funcall comment-function beg end)
+             (comment-or-uncomment-region beg end))))))
 
 (evil-define-operator evil-commentary-line (beg end type)
   "Comment or uncomment [count] lines."
