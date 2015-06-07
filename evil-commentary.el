@@ -69,15 +69,13 @@ needed."
   :move-point nil
   (interactive "<R>")
   ;; Special treatment for org-mode
-  (cond ((and (derived-mode-p 'org-mode)
-              (org-in-src-block-p)
-              (not (bound-and-true-p org-src-mode)))
-           (push-mark end)
-           (goto-char beg)
+  (cond ((and (fboundp 'org-in-src-block-p)
+              (org-in-src-block-p))
+           (push-mark beg)
+           (goto-char end)
            (setq mark-active t)
-           (org-edit-src-code)
-           (call-interactively 'evil-commentary)
-           (org-edit-src-exit)
+           (org-babel-do-in-edit-buffer
+            (call-interactively 'evil-commentary))
            (pop-mark))
         (t
          (let ((comment-function
