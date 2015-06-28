@@ -45,6 +45,9 @@
 (require 'evil)
 (require 'ec-mode-comment-functions)
 
+(eval-when-compile
+  (require 'org nil t))
+
 (defgroup evil-commentary nil
   "Comment stuff out"
   :group 'evil
