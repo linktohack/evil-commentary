@@ -43,7 +43,6 @@
 ;;; Code:
 
 (require 'evil)
-(require 'ec-mode-comment-functions)
 
 (eval-when-compile
   (require 'org nil t))
@@ -63,8 +62,7 @@ function. By specify an alist of modes here, the comment function
 provided by major mode will be use instead.
 
 A comment functions has to accept BEG, END as its required
-parameter. See `ec-mode-comment-functions' if a customized one is
-needed."
+parameter."
   :group 'evil-commentary)
 
 (evil-define-operator evil-commentary (beg end type)

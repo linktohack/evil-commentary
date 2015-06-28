@@ -62,7 +62,7 @@ function provided by major mode will be use instead.
 
 A comment functions has to accept BEG, END as its required parameter.
 See
-[ec-mode-comment-functions](https://github.com/linktohack/evil-commentary/blob/master/ec-mode-comment-functions.el)
+[this commit](https://github.com/linktohack/evil-commentary/commit/9f5bc144c591f0bec7da8dd325fa24235f0412df)
 if a customized one is needed.
 
 ## Custom mappings
