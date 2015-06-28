@@ -38,20 +38,35 @@ line to `init.el`
 (evil-commentary-mode)
 ```
 
-## Default mappings
+## Default mappings and commands
 
 The default mappings will enable the `operator` `evil-commentary` to
 <kbd>gc</kbd>. That means we will be free to use it with any available
 `motions` and `arguments`. <kbd>gcc</kbd> does also work as
-expected. Try <kbd>gcap</kbd> to comment out a paragraph or to uncomment
-a paragraph that is already commented out.
+expected. Try <kbd>gcap</kbd> to comment out a paragraph or to
+uncomment a paragraph that is already commented out.
 
 `:g/TODO/evil-commentary` can be used to toggle comments on all lines
 that contain the string "TODO".
 
 I also bind <kbd>super</kbd>+<kbd>/</kbd> as an stand-alone *defacto*
-default key binding in most text-editor. It's should work in `emacs` and
-`insert` state too. (Evil is however still required.)
+default key binding in most text-editor. It's should work in `emacs`
+and `insert` state too. (Evil is however still required.)
+
+### Copy and comment
+
+As working with codes, one will find himself often try different
+values or different settings. `evil-commentary-yank' do basically the
+same thing excepts it also copy the old value so we can paste ('P')
+then modify it accordingly.
+
+| Map | Command                   |
+|-----|---------------------------|
+| gc  | evil-commentary           |
+| s-/ | evil-commentary-line      |
+| gy  | evil-commentary-yank      |
+|     | evil-commentary-yank-line |
+
 
 ## Comment function
 
@@ -62,7 +77,7 @@ function provided by major mode will be use instead.
 
 A comment functions has to accept BEG, END as its required parameter.
 See
-[this commit](https://github.com/linktohack/evil-commentary/commit/9f5bc144c591f0bec7da8dd325fa24235f0412df)
+[this commit](https://github.com/linktohack/evil-commentary/blob/9f5bc144c591f0bec7da8dd325fa24235f0412df/ec-mode-comment-functions.el)
 if a customized one is needed.
 
 ## Custom mappings
