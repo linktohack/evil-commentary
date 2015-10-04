@@ -45,7 +45,10 @@
 (require 'evil)
 
 (eval-when-compile
-  (require 'org nil t))
+  (when (fboundp 'org-babel-do-in-edit-buffer)
+    (fmakunbound 'org-babel-do-in-edit-buffer)
+    (declare-function org-babel-do-in-edit-buffer "ob-core.el")
+    (autoload 'org-babel-do-in-edit-buffer "ob-core.el")))
 
 (defgroup evil-commentary nil
   "Comment stuff out"
