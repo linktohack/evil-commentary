@@ -14,7 +14,7 @@ author of [vim-commentary] and want to have something really simple
 ## Install
 
 The easiest way to install `evil-commentary` is by `package.el` through
-melpa [melpa](http://melpa.milkbox.net/#/getting-started) then try it
+melpa [melpa](https://melpa.org/#/getting-started) then try it
 with
 
 ```lisp
@@ -95,7 +95,7 @@ To customize keys, consider add something like this into `init.el`.
 ```
 
 [evil-commentary]: https://github.com/linktohack/evil-commentary
-[evil-mode]: https://gitorious.org/evil/pages/Home
+[evil-mode]: https://bitbucket.org/lyro/evil/wiki/Home
 [vim-commentary]: https://github.com/tpope/vim-commentary
 [tpope]: https://github.com/tpope
 [evil-space]: https://github.com/linktohack/evil-space
