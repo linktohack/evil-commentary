@@ -76,8 +76,8 @@ parameter."
      (org-babel-do-in-edit-buffer
       ,@body)
      (evil-scroll-line-down 1)    ; stupid fix
-     (evil-scroll-line-to-top (1+ current-line))
-     (evil-scroll-line-up (1+ offset))))
+     (evil-scroll-line-to-top current-line)
+     (evil-scroll-line-up offset)))
 
 (evil-define-operator evil-commentary (beg end type)
   "Comment or uncomment region that {motion} moves over."
