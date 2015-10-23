@@ -142,13 +142,6 @@ parameter."
         (call-interactively 'evil-commentary))
     (comment-or-uncomment-region beg end)))
 
-;;;###autoload
-(define-obsolete-variable-alias 'evil-commentary-default-setup
-  'evil-commentary-mode "0.0.3")
-;;;###autoload
-(define-obsolete-function-alias 'evil-commentary-default-setup
-  'evil-commentary-mode "0.0.3")
-
 (provide 'evil-commentary)
 
 ;;; evil-commentary.el ends here
