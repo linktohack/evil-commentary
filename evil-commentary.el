@@ -135,7 +135,7 @@ parameter."
 ;;;###autoload
 (defun evil-commentary-comment-for-org (beg end)
   "Comment function for `org-mode'."
-  (interactive)
+  (interactive "r")
   (if (and (fboundp 'org-in-src-block-p)
            (org-in-src-block-p))
       (evil-commentary-do-in-babel beg end
