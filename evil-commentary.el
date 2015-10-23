@@ -115,7 +115,7 @@ parameter."
             map))
 
 ;;;###autoload
-(defmacro evil-commentary-do-in-babel (beg end &rest body)
+(defmacro evil-commentary-do-in-org-src-block (beg end &rest body)
   "Do `org-babel-do-in-edit-buffer' and restore view."
   (declare (indent defun))
   `(let* ((current-line (line-number-at-pos))
@@ -138,7 +138,7 @@ parameter."
   (interactive "r")
   (if (and (fboundp 'org-in-src-block-p)
            (org-in-src-block-p))
-      (evil-commentary-do-in-babel beg end
+      (evil-commentary-do-in-org-src-block beg end
         (call-interactively 'evil-commentary))
     (comment-or-uncomment-region beg end)))
 
