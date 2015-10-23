@@ -62,6 +62,23 @@ A comment functions has to accept BEG, END as its required
 parameter."
   :group 'evil-commentary)
 
+(defmacro evil-commentary-babel-do (beg end &rest body)
+  "Do `org-babel-do-in-edit-buffer' and restore view."
+  (declare (indent defun))
+  `(let* ((current-line (line-number-at-pos))
+          (top-line (save-excursion
+                      (move-to-window-line 0)
+                      (line-number-at-pos)))
+          (offset (- current-line top-line)))
+     (push-mark ,beg)
+     (goto-char ,end)
+     (setq mark-active t)
+     (org-babel-do-in-edit-buffer
+      ,@body)
+     (evil-scroll-line-down 1)    ; stupid fix
+     (evil-scroll-line-to-top (1+ current-line))
+     (evil-scroll-line-up (1+ offset))))
+
 (evil-define-operator evil-commentary (beg end type)
   "Comment or uncomment region that {motion} moves over."
   :move-point nil
@@ -69,19 +86,8 @@ parameter."
   ;; Special treatment for org-mode
   (cond ((and (fboundp 'org-in-src-block-p)
               (org-in-src-block-p))
-         (let* ((current-line (line-number-at-pos))
-                (top-line (save-excursion
-                            (move-to-window-line 0)
-                            (line-number-at-pos)))
-                (offset (- current-line top-line)))
-           (push-mark beg)
-           (goto-char end)
-           (setq mark-active t)
-           (org-babel-do-in-edit-buffer
-            (call-interactively 'evil-commentary))
-           (evil-scroll-line-down 1)    ; stupid fix
-           (evil-scroll-line-to-top (1+ current-line))
-           (evil-scroll-line-up (1+ offset))))
+         (evil-commentary-babel-do beg end
+           (call-interactively 'evil-commentary)))
         (t
          (let ((comment-function
                 (cdr (assoc major-mode
