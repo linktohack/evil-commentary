@@ -79,6 +79,7 @@ parameter."
            (setq mark-active t)
            (org-babel-do-in-edit-buffer
             (call-interactively 'evil-commentary))
+           (evil-scroll-line-down 1)    ; stupid fix
            (evil-scroll-line-to-top (1+ current-line))
            (evil-scroll-line-up (1+ offset))))
         (t
