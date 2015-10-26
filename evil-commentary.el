@@ -126,8 +126,8 @@ parameter."
      (push-mark ,beg)
      (goto-char ,end)
      (setq mark-active t)
-     (org-babel-do-in-edit-buffer
-      ,@body)
+     (eval '(org-babel-do-in-edit-buffer
+      ,@body))
      (evil-scroll-line-down 1)    ; stupid fix
      (evil-scroll-line-to-top current-line)
      (evil-scroll-line-up offset)))
