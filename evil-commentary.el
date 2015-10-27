@@ -50,7 +50,7 @@
   :prefix "evil-commentary-")
 
 (defcustom evil-commentary-comment-function-for-mode-alist
-  '((org-mode . evil-commentary-comment-for-org)
+  '((org-mode . evil-commentary/org-comment-or-uncomment-region)
     (f90-mode . f90-comment-region)
     (web-mode . web-mode-comment-or-uncomment-region))
   "Mode-specific comment function.
@@ -115,31 +115,37 @@ parameter."
             map))
 
 ;;;###autoload
-(defmacro evil-commentary-do-in-org-src-block (beg end &rest body)
-  "Do `org-babel-do-in-edit-buffer' and restore view."
+(defmacro evil-commentary/org-babel-do-in-edit-buffer (beg end &rest body)
+  "Do `org-babel-do-in-edit-buffer' and restore view.
+
+Return the same value as `org-babel-do-in-edit-buffer'. Save top
+line of current window and restore it if sucess."
   (declare (indent defun))
-  `(let* ((current-line (line-number-at-pos))
-          (top-line (save-excursion
-                      (move-to-window-line 0)
-                      (line-number-at-pos)))
-          (offset (- current-line top-line)))
-     (push-mark ,beg)
-     (goto-char ,end)
-     (setq mark-active t)
-     (eval '(org-babel-do-in-edit-buffer
-      ,@body))
-     (evil-scroll-line-down 1)    ; stupid fix
-     (evil-scroll-line-to-top current-line)
-     (evil-scroll-line-up offset)))
+  `(when (fboundp 'org-babel-do-in-edit-buffer)
+     (let ((top-line (line-number-at-pos (window-start)))
+           (current-point (point))
+           found)
+       (push-mark ,beg)
+       (goto-char ,end)
+       (setq mark-active t)
+       (setq found (eval '(org-babel-do-in-edit-buffer
+                             ,@body)))
+       (pop-mark)
+       (if (not found)
+           (goto-char current-point)
+         (save-excursion
+           (scroll-up 1)              ; stupid fix
+           (goto-char (point-min))
+           (forward-line (1- top-line))
+           (recenter 0)))
+       found)))
 
 ;;;###autoload
-(defun evil-commentary-comment-for-org (beg end)
+(defun evil-commentary/org-comment-or-uncomment-region (beg end)
   "Comment function for `org-mode'."
   (interactive "r")
-  (if (and (fboundp 'org-in-src-block-p)
-           (org-in-src-block-p))
-      (evil-commentary-do-in-org-src-block beg end
-        (call-interactively 'evil-commentary))
+  (unless (evil-commentary/org-babel-do-in-edit-buffer beg end
+            (call-interactively 'evil-commentary))
     (comment-or-uncomment-region beg end)))
 
 (provide 'evil-commentary)
