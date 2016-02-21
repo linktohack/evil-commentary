@@ -11,6 +11,11 @@ I wrote this because of that I really admire the work of [tpope] the
 author of [vim-commentary] and want to have something really simple
 (less than 100 lines) like he did with his [vim-commentary].
 
+## Feature complete
+
+[evil-commentary] is considered feature complete as of `v2.0.0`. The
+integration part maybe added in the future though.
+
 ## Install
 
 The easiest way to install `evil-commentary` is by `package.el` through
