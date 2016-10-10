@@ -95,6 +95,7 @@ elegant/convenient, consider having a look on [evil-space] to keep
 To customize keys, consider add something like this into `init.el`.
 
 ```lisp
+(define-key evil-motion-state-map "," nil)
 (evil-define-key 'normal evil-commentary-mode-map ",c" 'evil-commentary)
 (define-key evil-commentary-mode-map (kbd "M-;") 'evil-commentary-line)
 ```
