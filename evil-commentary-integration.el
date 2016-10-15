@@ -1,3 +1,5 @@
+(declare-function org-in-src-block-p "org")
+
 (defmacro evil-commentary/org-babel-do-in-edit-buffer (beg end &rest body)
   "Do `org-babel-do-in-edit-buffer' and restore view.
 
