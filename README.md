@@ -54,16 +54,16 @@ uncomment a paragraph that is already commented out.
 `:g/TODO/evil-commentary` can be used to toggle comments on all lines
 that contain the string "TODO".
 
-I also bind <kbd>super</kbd>+<kbd>/</kbd> as an stand-alone *defacto*
-default key binding in most text-editor. It's should work in `emacs`
-and `insert` state too. (Evil is however still required.)
+I also bind <kbd>super</kbd>+<kbd>/</kbd> as a stand-alone *de facto*
+default key binding in most text editors. It's should work in `emacs`
+and `insert` states too. (Evil is however still required.)
 
 ### Copy and comment
 
-As working with codes, one will find himself often try different
-values or different settings. `evil-commentary-yank' do basically the
-same thing excepts it also copy the old value so we can paste ('P')
-then modify it accordingly.
+When working with code, it is often useful to try different
+variations or different settings. `evil-commentary-yank' does the
+same, but also copies the original code so it can be pasted ('P')
+and modified accordingly.
 
 | Map | Command                   |
 |-----|---------------------------|
