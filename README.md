@@ -61,8 +61,8 @@ and `insert` states too. (Evil is however still required.)
 ### Copy and comment
 
 When working with code, it is often useful to try different
-variations or different settings. `evil-commentary-yank' does the
-same, but also copies the original code so it can be pasted ('P')
+variations or different settings. `evil-commentary-yank` does the
+same, but also copies the original code so it can be pasted (<kbd>P</kbd>')
 and modified accordingly.
 
 | Map | Command                   |
