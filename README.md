@@ -7,13 +7,13 @@
 > <kbd>gcap</kbd> to comment out a paragraph), <kbd>gc</kbd> in visual
 > mode to comment out the selection.
 
-I wrote this because of that I really admire the work of [tpope] the
+I wrote this because of that I really admire the work of [tpope], the
 author of [vim-commentary] and want to have something really simple
 (less than 100 lines) like he did with his [vim-commentary].
 
-## Feature complete
+## Feature completed
 
-[evil-commentary] is considered feature complete as of `v2.0.0`. The
+[evil-commentary] is considered feature completed as of `v2.0.0`. The
 integration part maybe added in the future though.
 
 ## Install
