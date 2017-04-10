@@ -62,7 +62,8 @@ provided by major mode will be use instead.
 
 A comment functions has to accept BEG, END as its required
 parameter."
-  :group 'evil-commentary)
+  :group 'evil-commentary
+  :type '(alist :key-type symbol :value-type function))
 
 (evil-define-operator evil-commentary (beg end type)
   "Comment or uncomment region that {motion} moves over."
