@@ -1,26 +1,33 @@
 # evil-commentary
 
-[evil-commentary] is intended to be a port of [vim-commentary].
+[evil-commentary] is an Emacs package for [evil-mode]
+that intends to make it easy to comment out (lines of) code:
 
-> Use <kbd>gcc</kbd> to comment out a line (takes a count),
-> <kbd>gc</kbd> to comment out the target of a motion (for example,
-> <kbd>gcap</kbd> to comment out a paragraph), <kbd>gc</kbd> in visual
-> mode to comment out the selection.
+* <kbd>gcc</kbd> comments out a line (takes a count)
+* <kbd>gc</kbd> comments out the target of a motion,
+  e.g. <kbd>gcap</kbd> to comment out a paragraph (normal state)
+  and <kbd>gc</kbd> to comment out the selection (visual state).
 
-I wrote this because of that I really admire the work of [tpope], the
-author of [vim-commentary] and want to have something really simple
-(less than 100 lines) like he did with his [vim-commentary].
+This package is a port of the [vim-commentary] plugin for Vim.
+I wrote this because I really admire the work of [tpope],
+its author, and wanted to have something really simple
+(less than 100 lines) like [vim-commentary].
 
-## Feature completed
+[evil-commentary] is considered feature complete as of `v2.0.0`,
+though additional integrations may be added in the future.
 
-[evil-commentary] is considered feature completed as of `v2.0.0`. The
-integration part maybe added in the future though.
 
-## Install
+## Installation
 
-The easiest way to install `evil-commentary` is by `package.el` through
-melpa [melpa](https://melpa.org/#/getting-started) then try it
-with
+The easiest way to install `evil-commentary` is to use `package.el` to
+obtain it from [Melpa](https://melpa.org/#/getting-started):
+
+
+```lisp
+M-x package-install RET evil-commentary RET
+```
+
+You can now try it with:
 
 ```lisp
 M-x evil-commentary-mode
@@ -34,8 +41,8 @@ To enable `evil-commentary` permanently, add
 
 to your `init.el`.
 
-Or manually clone [evil-commentary] to your `loadpath` and add those
-line to `init.el`
+Alternatively, you can manually clone [evil-commentary]
+to your `load-path` using something like this:
 
 ```lisp
 (add-to-list 'load-path "/path/to/evil-commentary")
@@ -43,62 +50,89 @@ line to `init.el`
 (evil-commentary-mode)
 ```
 
-## Default mappings and commands
 
-The default mappings will enable the `operator` `evil-commentary` to
-<kbd>gc</kbd>. That means we will be free to use it with any available
-`motions` and `arguments`. <kbd>gcc</kbd> does also work as
-expected. Try <kbd>gcap</kbd> to comment out a paragraph or to
-uncomment a paragraph that is already commented out.
+## Usage
 
-`:g/TODO/evil-commentary` can be used to toggle comments on all lines
-that contain the string "TODO".
-
-I also bind <kbd>super</kbd>+<kbd>/</kbd> as a stand-alone *de facto*
-default key binding in most text editors. It's should work in `emacs`
-and `insert` states too. (Evil is however still required.)
-
-### Copy and comment
-
-When working with code, it is often useful to try different
-variations or different settings. `evil-commentary-yank` does the
-same, but also copies the original code so it can be pasted (<kbd>P</kbd>)
-and modified accordingly.
+Here is an overview of the provided commands and their default key bindings:
 
 | Map | Command                   |
 |-----|---------------------------|
 | gc  | evil-commentary           |
-| s-/ | evil-commentary-line      |
 | gy  | evil-commentary-yank      |
+| s-/ | evil-commentary-line      |
 |     | evil-commentary-yank-line |
 
+### Comment and uncomment
 
-## Comment function
+The default key bindings use <kbd>gc</kbd>
+for the `evil-commentary` operator command.
+That means it can be used with all available motions and counts,
+just like other operator commands, such as `evil-delete`.
+<kbd>gcc</kbd> comments out a line,
+and <kbd>3gcc</kbd> comments out three lines.
+Try <kbd>gcap</kbd> to comment out a paragraph
+or to uncomment a paragraph that is already commented out.
 
-By default, `evil-commentary` use `comment-or-uncomment` function. By
-specify an alist of modes
-`evil-commentary-comment-function-for-mode-alist`, the comment
-function provided by major mode will be use instead.
+`evil-commentary` can also be used in the `ex` command line,
+which is usually brought up by pressing `:`. As an example,
 
-A comment functions has to accept BEG, END as its required parameter.
-See
-[this commit](https://github.com/linktohack/evil-commentary/blob/9f5bc144c591f0bec7da8dd325fa24235f0412df/ec-mode-comment-functions.el)
-if a customized one is needed.
+```
+:g/TODO/evil-commentary
+```
 
-## Custom mappings
+toggles comments on all lines that contain the string "TODO".
 
-You're free to map `evil-commentary` and `evil-commentary-line` to
-anything you want. If you find that <kbd>,cc</kbd> is more
-elegant/convenient, consider having a look on [evil-space] to keep
-`evil-repeat-find-char` functional...
+The default bindings also bind <kbd>super</kbd>+<kbd>/</kbd>
+to `evil-commentary-line`, which comments out a single line,
+since that is the *de facto* standard shortcut in many text editors.
+It also works in `emacs` and `insert` states.
+(Keep in mind that `evil` is still required.)
 
-To customize keys, consider add something like this into `init.el`.
+### Copy and comment
+
+When editing code,
+it is common to try different variations of a piece of code,
+or to run a program with different settings.
+This is where `evil-commentary-yank`
+(and `evil-commentary-yank-line`) can be very helpful.
+This command does the same as `evil-commentary`,
+but also copies the original (uncommented) code
+so that it can be easily pasted and modified afterwards.
+By default, this functionality is bound to <kbd>gy</kbd>.
+As an example, <kbd>gyyp</kbd> comments out a line of code (<kbd>gyy</kbd>)
+and puts the original line of code after the current one (<kbd>p</kbd>).
+
+
+## Customization
+
+### Comment function
+
+By default, `evil-commentary` uses the `comment-or-uncomment` function.
+It is possible to specify a different comment function by adding it
+`evil-commentary-comment-function-for-mode-alist`, which is an
+`alist` that maps a major mode (a symbol) to a comment function
+(also a symbol).
+
+A comment function must accept `beg` and `end` (both buffer positions)
+as its required parameters. You can use the source code for the bundled
+integrations as an example.
+
+### Key bindings
+
+You can bind `evil-commentary` and `evil-commentary-line` to
+other keys than the defaults. For example:
 
 ```lisp
 (define-key evil-motion-state-map "," nil)
-(evil-define-key 'normal evil-commentary-mode-map ",c" 'evil-commentary)
-(define-key evil-commentary-mode-map (kbd "M-;") 'evil-commentary-line)
+(evil-define-key 'normal evil-commentary-mode-map
+  ",c" 'evil-commentary)
+(define-key evil-commentary-mode-map
+  (kbd "M-;") 'evil-commentary-line)
 ```
+
+If you think that <kbd>,cc</kbd> is more convenient,
+have a look at [evil-space] to keep `evil-repeat-find-char` functional.
+
 
 [evil-commentary]: https://github.com/linktohack/evil-commentary
 [evil-mode]: https://bitbucket.org/lyro/evil/wiki/Home
