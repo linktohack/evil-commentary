@@ -61,6 +61,8 @@ Here is an overview of the provided commands and their default key bindings:
 | gy  | evil-commentary-yank      |
 | s-/ | evil-commentary-line      |
 |     | evil-commentary-yank-line |
+| gcau| Uncomment the current and adjacent commented lines. |
+
 
 ### Comment and uncomment
 
@@ -87,6 +89,11 @@ to `evil-commentary-line`, which comments out a single line,
 since that is the *de facto* standard shortcut in many text editors.
 It also works in `emacs` and `insert` states.
 (Keep in mind that `evil` is still required.)
+
+A new evil (outer) text object is defined. <kbd>au</kbd> describes
+a commented region. This includes all previous/following commented
+lines and empty lines. So <kbd>gcau</kbd> mimics vim-commentarys
+<kbd>gcgc</kbd>.
 
 ### Copy and comment
 

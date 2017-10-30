@@ -105,6 +105,33 @@ parameter."
   (evil-yank-line beg end type register)
   (evil-commentary-line beg end))
 
+(defun evil-commentary/ensure-in-comment-block (beg end forward)
+  (save-excursion
+    (beginning-of-line)
+    (if (not (or (looking-at-p (concat "^\s*" (regexp-quote comment-start)))
+                 (looking-at-p (concat "^\s*$"))))
+        (list beg end)
+      (let ((saved-beg (point))
+            (saved-end (point-at-eol)))
+        (catch 'bound
+          (when (<= saved-beg (point-min))
+            (throw 'bound (list saved-beg end)))
+          (when (>= saved-end (point-max))
+            (throw 'bound (list beg saved-end)))
+          (if forward
+              (next-line)
+            (previous-line))
+          (apply #'evil-commentary/ensure-in-comment-block
+                 (if forward
+                     (list beg saved-end forward)
+                   (list saved-beg end forward))))))))
+
+(evil-define-text-object evil-commentary/a-comment-block (count &optional beg end type)
+  "A comment block"
+  (let ((backward (evil-commentary/ensure-in-comment-block (point) (point) nil))
+        (forward (evil-commentary/ensure-in-comment-block (point) (point) t)))
+    (list (car backward) (cadr forward))))
+
 ;;;###autoload
 (define-minor-mode evil-commentary-mode
   "Commentary mode."
@@ -114,6 +141,7 @@ parameter."
             (evil-define-key 'normal map "gc" 'evil-commentary)
             (evil-define-key 'normal map "gy" 'evil-commentary-yank)
             (define-key map (kbd "s-/") 'evil-commentary-line)
+            (define-key evil-outer-text-objects-map "u" #'evil-commentary/a-comment-block)
             map))
 
 (provide 'evil-commentary)
