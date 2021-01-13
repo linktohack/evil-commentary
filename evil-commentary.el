@@ -1,6 +1,7 @@
 ;;; evil-commentary.el --- Comment stuff out. A port of vim-commentary.
 
 ;; Copyright (C) 2014 Quang Linh LE
+;; Copyright (C) 2021 Peter Wu
 
 ;; Author: Quang Linh LE <linktohack@gmail.com>
 ;; URL: http://github.com/linktohack/evil-commentary
@@ -109,7 +110,6 @@ parameter."
 (define-minor-mode evil-commentary-mode
   "Commentary mode."
   :lighter " s-/"
-  :global t
   :keymap (let ((map (make-sparse-keymap)))
             (evil-define-key 'normal map "gc" 'evil-commentary)
             (evil-define-key 'normal map "gy" 'evil-commentary-yank)
