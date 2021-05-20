@@ -133,6 +133,23 @@ other keys than the defaults. For example:
 If you think that <kbd>,cc</kbd> is more convenient,
 have a look at [evil-space] to keep `evil-repeat-find-char` functional.
 
+## Test
+
+```shel
+❯ cask exec ecukes
+Evil-Commentary mode enabled
+
+
+.
+
+Evil-Commentary mode enabled
+
+
+ .
+
+2 scenarios (0 failed, 2 passed)
+17 steps (0 failed, 0 skipped, 17 passed)
+```
 
 [evil-commentary]: https://github.com/linktohack/evil-commentary
 [evil-mode]: https://bitbucket.org/lyro/evil/wiki/Home
