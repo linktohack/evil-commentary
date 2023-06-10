@@ -30,8 +30,12 @@ line of current window and restore it if sucess."
 (defun evil-commentary/org-comment-or-uncomment-region (beg end)
   "Comment function for `org-mode'."
   (interactive "r")
-  (unless (evil-commentary/org-babel-do-in-edit-buffer beg end
-            (call-interactively 'evil-commentary))
-    (comment-or-uncomment-region beg end)))
+  (cond ((org-in-src-block-p)
+	 (evil-commentary/org-babel-do-in-edit-buffer beg end
+	   (call-interactively 'evil-commentary)))
+	((and (org-at-heading-p) (not mark-active))
+	 (org-toggle-comment))
+	(t
+	 (comment-or-uncomment-region beg end))))
 
 (provide 'evil-commentary-integration)
